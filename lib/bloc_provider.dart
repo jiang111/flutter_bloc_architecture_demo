@@ -48,16 +48,16 @@ class BlocProvider {
             finished();
           }
           if (snapshot.hasData) {
-            return success(snapshot.data);
+            if (success != null) return success(snapshot.data);
           } else if (snapshot.hasError) {
             final errorStr = snapshot.error;
             if (errorStr == _EMPTY) {
-              return empty();
+              if (empty != null) return empty();
             } else {
-              return error(errorStr);
+              if (error != null) return error(errorStr);
             }
           } else {
-            return loading();
+            if (loading != null) return loading();
           }
         });
   }
